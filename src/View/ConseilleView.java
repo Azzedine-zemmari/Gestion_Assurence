@@ -26,6 +26,7 @@ public class ConseilleView {
         switch (choix){
             case 1 : creeConseiller();break;
             case 2 : supprimerConseiller();break;
+            case 3 : rechercherConseiller();break;
             default:
                 System.out.println("ghlaaaaaaaaat");
                 break;
@@ -52,5 +53,13 @@ public class ConseilleView {
         UUID uuid = UUID.fromString(Conseille_idS);
         conseilleService.supprimerConseiller(uuid);
     }
-
+    public static void rechercherConseiller(){
+        List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
+        conseilles.stream()
+                .forEach(conseille -> System.out.println(conseille));
+        System.out.println("Enterer id pour le conseillent ");
+        String Conseille_idS = scanner.nextLine();
+        UUID uuid = UUID.fromString(Conseille_idS);
+        System.out.println(conseilleDao.findById(uuid));
+    }
 }
