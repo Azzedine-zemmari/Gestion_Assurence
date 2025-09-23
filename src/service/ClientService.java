@@ -28,6 +28,5 @@ public class ClientService {
         }
         clientDao.ajouterClient(c);
         System.out.println("Client ajouter avec succes");
-
     }
 }

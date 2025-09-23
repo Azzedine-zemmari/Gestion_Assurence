@@ -24,4 +24,8 @@ public class ConseilleService {
         conseilleDao.ajouterConseiller(c);
         System.out.println("Conseiller ajouter avec success");
     }
+    public void supprimerConseiller(Conseille c){
+
+
+    }
 }
