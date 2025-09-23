@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class Client extends Person{
     private UUID id;
-    private String conseille_id;
+    private UUID conseille_id;
 
-    public Client(String nom, String prenom, String email, UUID id, String conseille_id) {
+    public Client(String nom, String prenom, String email, UUID id, UUID conseille_id) {
         super(nom, prenom, email);
         this.id = id;
         this.conseille_id = conseille_id;
@@ -22,11 +22,11 @@ public class Client extends Person{
     }
 
 
-    public String getConseille_id() {
+    public UUID getConseille_id() {
         return conseille_id;
     }
 
-    public void setConseille_id(String conseille_id) {
+    public void setConseille_id(UUID conseille_id) {
         this.conseille_id = conseille_id;
     }
 

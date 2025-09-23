@@ -1,10 +1,12 @@
 package service;
 
 import dao.ClientDao;
+import dao.ConseilleDao;
 import model.Client;
 
 public class ClientService {
     private final ClientDao clientDao;
+    private final ConseilleDao conseilleDao = new ConseilleDao();
     public ClientService(){
         this.clientDao = new ClientDao();
     }
@@ -22,9 +24,8 @@ public class ClientService {
             System.out.println("ERREUR EMAIL NE PEUT PAS ETRE VIDE");
             return;
         }
-        if(c.getConseille_id() == null || c.getConseille_id().isEmpty()){
-            System.out.println("ERREUR Conseille id NE PEUT PAS ETRE VIDE");
-            return;
+        if(conseilleDao.findById(c.getConseille_id()) == null){
+            System.out.println("ERREUR ce conseille et n existe pas");
         }
         clientDao.ajouterClient(c);
         System.out.println("Client ajouter avec succes");

@@ -1,3 +1,4 @@
+import View.ClientView;
 import View.ConseilleView;
 import utils.DatabaseConnection;
 
@@ -5,6 +6,7 @@ import utils.DatabaseConnection;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        ConseilleView.start();
+//        ConseilleView.start();
+        ClientView.start();
     }
 }
