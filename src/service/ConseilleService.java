@@ -3,6 +3,8 @@ package service;
 import dao.ConseilleDao;
 import model.Conseille;
 
+import java.util.NoSuchElementException;
+
 public class ConseilleService {
     private final ConseilleDao conseilleDao;
     public ConseilleService(){
@@ -25,7 +27,11 @@ public class ConseilleService {
         System.out.println("Conseiller ajouter avec success");
     }
     public void supprimerConseiller(Conseille c){
+        if(conseilleDao.findById(c.getId()) == null){
+            throw new NoSuchElementException("Conseille with id " + c.getId() + "Not found ");
+        }
 
-
+        conseilleDao.supprimerConseiller(c.getId());
+        System.out.println("Conseiller supprimer avec success");
     }
 }

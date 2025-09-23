@@ -5,6 +5,7 @@ import utils.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -33,5 +34,23 @@ public class ConseilleDao {
         }catch (SQLException e){
             System.out.println(e);
         }
+    }
+    public  Conseille findById(UUID id){
+        String sql = "SELECT * FROM conseilles where id = ?";
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setObject(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return new Conseille(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        (UUID) rs.getObject("id")
+                );
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
     }
 }
