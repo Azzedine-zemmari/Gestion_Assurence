@@ -4,6 +4,7 @@ import dao.ConseilleDao;
 import model.Conseille;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 public class ConseilleService {
     private final ConseilleDao conseilleDao;
@@ -26,12 +27,12 @@ public class ConseilleService {
         conseilleDao.ajouterConseiller(c);
         System.out.println("Conseiller ajouter avec success");
     }
-    public void supprimerConseiller(Conseille c){
-        if(conseilleDao.findById(c.getId()) == null){
-            throw new NoSuchElementException("Conseille with id " + c.getId() + "Not found ");
+    public void supprimerConseiller(UUID id ){
+        if(conseilleDao.findById(id) == null){
+            throw new NoSuchElementException("Conseille with id " + id + "Not found ");
         }
 
-        conseilleDao.supprimerConseiller(c.getId());
+        conseilleDao.supprimerConseiller(id);
         System.out.println("Conseiller supprimer avec success");
     }
 }

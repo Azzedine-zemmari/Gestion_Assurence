@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ConseilleDao {
@@ -52,5 +54,23 @@ public class ConseilleDao {
             System.out.println(e);
         }
         return null;
+    }
+    public List<Conseille>  afficherAllConseiller(){
+        List<Conseille> conseilles = new ArrayList<>();
+        String sql = "select id,nom,prenom,email from conseilles";
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                conseilles.add(new Conseille(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        (UUID) rs.getObject("id")
+                ));
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return conseilles;
     }
 }

@@ -13,4 +13,14 @@ public class Conseille extends Person{
     public UUID getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Conseille{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
