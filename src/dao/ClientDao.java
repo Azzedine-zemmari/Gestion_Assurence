@@ -73,4 +73,12 @@ public class ClientDao {
         );
         return result;
     }
+    public List<String> rechercherClientParNom(String Nom){
+        List<Client> clients = afficherAllclient();
+        List<String> result = clients.stream()
+                .filter(client -> client.getNom().equals(Nom))
+                .map(client -> "NOM : " +  client.getNom() + " PRENOM : " + client.getPrenom() + " Email " +  client.getEmail())
+                .collect(Collectors.toList());
+        return result;
+    }
 }

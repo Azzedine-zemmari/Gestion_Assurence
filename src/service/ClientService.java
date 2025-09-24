@@ -54,4 +54,11 @@ public class ClientService {
             System.out.println("Aucune Client supprimer");
         }
     }
+    public void rechercherClientsParNom(String nom){
+        if(nom == null || nom.isEmpty()){
+            System.out.println("Erreur nom ne peut pas etre vide");
+            return;
+        }
+        clientDao.rechercherClientParNom(nom);
+    }
 }

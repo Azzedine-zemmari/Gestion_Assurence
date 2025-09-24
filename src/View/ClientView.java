@@ -37,6 +37,9 @@ public class ClientView {
             case 3:
                 afficherClientOfConseil();
                 break;
+            case 4 :
+                rechercheParNom();
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
         }
@@ -79,5 +82,11 @@ public class ClientView {
         String Conseille_idS = scanner.nextLine();
         UUID uuid = UUID.fromString(Conseille_idS);
         System.out.println(clientDao.afficherClientForConseille(uuid));
+    }
+    public static void rechercheParNom(){
+        System.out.println("Entrer votre nom : ");
+        String nom = scanner.nextLine();
+
+        System.out.println(clientDao.rechercherClientParNom(nom));
     }
 }
