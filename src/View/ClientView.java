@@ -22,7 +22,7 @@ public class ClientView {
         System.out.println("2 . delete client ");
         System.out.println("3 . recherche un client par nom ");
         System.out.println("4 . rchecher par id ");
-        System.out.println("5 . afficher liste du client ");
+        System.out.println("5 . afficher liste du client a partient d un conseille ");
 
         int choix = scanner.nextInt();
         scanner.nextLine();
@@ -33,6 +33,9 @@ public class ClientView {
                 break;
             case 2:
                 supprimerClient();
+                break;
+            case 3:
+                afficherClientOfConseil();
                 break;
             default:
                 System.out.println("choose a nombre in the list ");
@@ -66,5 +69,15 @@ public class ClientView {
         String id = scanner.nextLine();
         UUID idClient = UUID.fromString(id);
         clientService.supprimerClient(idClient);
+    }
+    public static void afficherClientOfConseil(){
+        System.out.println("test");
+        List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
+        conseilles.stream()
+                .forEach(conseille -> System.out.println(conseille));
+        System.out.println("Enterer id pour le conseillent ");
+        String Conseille_idS = scanner.nextLine();
+        UUID uuid = UUID.fromString(Conseille_idS);
+        System.out.println(clientDao.afficherClientForConseille(uuid));
     }
 }

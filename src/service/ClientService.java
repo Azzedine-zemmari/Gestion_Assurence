@@ -1,16 +1,26 @@
 package service;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import dao.ClientDao;
 import dao.ConseilleDao;
 import model.Client;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ClientService {
     private final ClientDao clientDao;
     private final ConseilleDao conseilleDao = new ConseilleDao();
     public ClientService(){
         this.clientDao = new ClientDao();
+    }
+    public static boolean isValidEmail(String email){
+        //todo: document more about it
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     public void ajouterClient(Client c){
@@ -22,7 +32,7 @@ public class ClientService {
             System.out.println("ERREUR PRENOM NE PEUT PAS ETRE VIDE");
             return;
         }
-        if(c.getEmail() == null || c.getEmail().isEmpty()){
+        if(c.getEmail() == null ||isValidEmail(c.getEmail())){
             System.out.println("ERREUR EMAIL NE PEUT PAS ETRE VIDE");
             return;
         }

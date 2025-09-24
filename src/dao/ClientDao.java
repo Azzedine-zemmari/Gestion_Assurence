@@ -1,22 +1,25 @@
 package dao;
 
 import model.Client;
+import model.Conseille;
 import utils.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ClientDao {
     private Connection connection;
+    private static final ConseilleDao conseilleDao = new ConseilleDao();
 
     public ClientDao() {
         connection = DatabaseConnection.getConnection();
     }
 
     public void ajouterClient(Client c) {
-        String sql = "INSERT INTO clients (id,nom,prenom,conseille_id) values(?,?,?,?)";
+        String sql = "INSERT INTO clients (id,nom,prenom,email,conseille_id) values(?,?,?,?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setObject(1,c.getId());
             stmt.setString(2,c.getNom());
@@ -56,5 +59,18 @@ public class ClientDao {
             System.out.println(e);
         }
         return clients;
+    }
+    public List<Client> afficherClientForConseille(UUID id){
+        List<Client> clients = afficherAllclient();
+        List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
+        List<Client> result = clients.stream()
+                .flatMap(client -> conseilles.stream()
+                        .filter(conseille -> conseille.getId().equals(client.getConseille_id()))
+                        .filter(conseille -> conseille.getId().equals(id))
+                        .map(conseille -> client
+                        ))
+                .collect(Collectors.toList()
+        );
+        return result;
     }
 }

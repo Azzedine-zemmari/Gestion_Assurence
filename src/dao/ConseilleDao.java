@@ -1,5 +1,6 @@
 package dao;
 
+import model.Client;
 import model.Conseille;
 import utils.DatabaseConnection;
 
@@ -73,4 +74,7 @@ public class ConseilleDao {
         }
         return conseilles;
     }
+//    public ArrayList<Client> afficherConseillerClients(UUID id){
+//        String sql = "";
+//    }
 }
