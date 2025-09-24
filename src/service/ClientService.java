@@ -32,12 +32,13 @@ public class ClientService {
             System.out.println("ERREUR PRENOM NE PEUT PAS ETRE VIDE");
             return;
         }
-        if(c.getEmail() == null ||isValidEmail(c.getEmail())){
-            System.out.println("ERREUR EMAIL NE PEUT PAS ETRE VIDE");
+        if(c.getEmail() == null || !isValidEmail(c.getEmail())){
+            System.out.println(c.getEmail());
             return;
         }
         if(conseilleDao.findById(c.getConseille_id()) == null){
             System.out.println("ERREUR ce conseille et n existe pas");
+            return;
         }
         clientDao.ajouterClient(c);
         System.out.println("Client ajouter avec succes");

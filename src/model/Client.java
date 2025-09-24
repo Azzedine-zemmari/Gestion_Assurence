@@ -21,7 +21,6 @@ public class Client extends Person{
         this.id = id;
     }
 
-
     public UUID getConseille_id() {
         return conseille_id;
     }

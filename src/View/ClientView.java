@@ -49,10 +49,13 @@ public class ClientView {
     public static void creeeClient() {
         System.out.println("Enter votre nom ");
         String nom = scanner.nextLine();
+
         System.out.println("Enter votre prenom ");
         String prenom = scanner.nextLine();
+
         System.out.println("Enter votre email ");
         String email = scanner.nextLine();
+
         System.out.println("Choisi votre conseiller");
         List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
         conseilles.stream().forEach(conseille -> System.out.println(conseille));
