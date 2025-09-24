@@ -3,9 +3,9 @@ package dao;
 import model.Client;
 import utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class ClientDao {
@@ -27,13 +27,34 @@ public class ClientDao {
             System.out.println("erreur : " + E.getMessage());
         }
     }
-    public void supprimerClient(UUID id){
+    public int supprimerClient(UUID id){
         String sql = "delete from clients where id = ?";
+        int row = 0;
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setObject(1,id);
-            stmt.executeQuery();
+            row = stmt.executeUpdate();
         }catch (SQLException e){
             System.out.println(e);
         }
+        return row;
+    }
+    public ArrayList<Client> afficherAllclient(){
+        ArrayList<Client> clients = new ArrayList<>();
+        String sql = "select * from clients";
+        try(Statement stmt = connection.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                clients.add(new Client(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        (UUID) rs.getObject("id"),
+                        (UUID) rs.getObject("conseille_id")
+                ));
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return clients;
     }
 }

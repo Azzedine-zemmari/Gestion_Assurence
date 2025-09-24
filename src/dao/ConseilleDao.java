@@ -55,8 +55,8 @@ public class ConseilleDao {
         }
         return null;
     }
-    public List<Conseille>  afficherAllConseiller(){
-        List<Conseille> conseilles = new ArrayList<>();
+    public ArrayList<Conseille>  afficherAllConseiller(){
+        ArrayList<Conseille> conseilles = new ArrayList<>();
         String sql = "select id,nom,prenom,email from conseilles";
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             ResultSet rs = stmt.executeQuery();

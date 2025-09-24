@@ -6,6 +6,7 @@ import model.Client;
 import model.Conseille;
 import service.ClientService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -14,6 +15,7 @@ public class ClientView {
     private static final Scanner scanner = new Scanner(System.in);
     private static final ClientService clientService = new ClientService();
     private static final ConseilleDao conseilleDao = new ConseilleDao();
+    private static final ClientDao clientDao = new ClientDao();
 
     public static void start() {
         System.out.println("1 . cree client ");
@@ -56,7 +58,10 @@ public class ClientView {
     }
 
     public static void supprimerClient(){
-
+        ArrayList<Client> clients = clientDao.afficherAllclient();
+        for(Client c : clients){
+            System.out.println(c);
+        }
         System.out.println("Entrer id du client : ");
         String id = scanner.nextLine();
         UUID idClient = UUID.fromString(id);

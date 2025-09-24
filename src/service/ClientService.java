@@ -37,7 +37,11 @@ public class ClientService {
             System.out.println("Erreur id ne peut pas etre vide");
             return ;
         }
-        clientDao.supprimerClient(id);
+        int row = clientDao.supprimerClient(id);
+        if(row > 0){
         System.out.println("Client supprimer avec success ");
+        }else{
+            System.out.println("Aucune Client supprimer");
+        }
     }
 }
