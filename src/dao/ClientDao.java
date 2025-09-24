@@ -6,6 +6,7 @@ import utils.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -77,9 +78,33 @@ public class ClientDao {
     public List<String> rechercherClientParNom(String Nom){
         List<Client> clients = afficherAllclient();
         List<String> result = clients.stream()
-                .filter(client -> client.getNom().equals(Nom))
+                .filter(client -> client.getNom().toLowerCase().contains(Nom.toLowerCase()))
+                // compartor et une interface a java pour compary 2 object ()
+                // method refrence short hand of lambda expression
+                // comparign need a key to sort the data
+                .sorted(Comparator.comparing(Client::getNom))
                 .map(client -> "NOM : " +  client.getNom() + " PRENOM : " + client.getPrenom() + " Email " +  client.getEmail())
                 .collect(Collectors.toList());
         return result;
+    }
+//    todo : using Optional
+    public Client rechercherParId(UUID id){
+        String sql = "SELECT * FROM clients where id = ?";
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setObject(1,id);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return new Client(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        (UUID) rs.getObject("id"),
+                        (UUID) rs.getObject("conseille_id")
+                );
+            }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
     }
 }

@@ -6,10 +6,8 @@ import model.Client;
 import model.Conseille;
 import service.ClientService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 public class ClientView {
     private static final Scanner scanner = new Scanner(System.in);
@@ -39,6 +37,9 @@ public class ClientView {
                 break;
             case 4 :
                 rechercheParNom();
+                break;
+            case 5:
+                rechercheParId();
                 break;
             default:
                 System.out.println("choose a nombre in the list ");
@@ -90,6 +91,18 @@ public class ClientView {
         System.out.println("Entrer votre nom : ");
         String nom = scanner.nextLine();
 
-        System.out.println(clientDao.rechercherClientParNom(nom));
+        System.out.println(clientService.rechercherClientsParNom(nom));
+    }
+    public static void rechercheParId(){
+        System.out.println("Entrer Id : ");
+        String id = scanner.nextLine();
+        UUID uuid = UUID.fromString(id);
+
+        Optional<Client> client = clientService.rechercherClientParId(uuid);
+        if(client.isPresent()){
+            System.out.println(client);
+        }else{
+            System.out.println("No client exists");
+        }
     }
 }

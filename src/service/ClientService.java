@@ -5,6 +5,9 @@ import dao.ClientDao;
 import dao.ConseilleDao;
 import model.Client;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,11 +58,15 @@ public class ClientService {
             System.out.println("Aucune Client supprimer");
         }
     }
-    public void rechercherClientsParNom(String nom){
+    public List<String> rechercherClientsParNom(String nom){
         if(nom == null || nom.isEmpty()){
             System.out.println("Erreur nom ne peut pas etre vide");
-            return;
+            return new ArrayList<>();
         }
-        clientDao.rechercherClientParNom(nom);
+        return clientDao.rechercherClientParNom(nom);
+    }
+    public Optional<Client> rechercherClientParId(UUID id){
+        Client client = clientDao.rechercherParId(id);
+        return Optional.ofNullable(client);
     }
 }
