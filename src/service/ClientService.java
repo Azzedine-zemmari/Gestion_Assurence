@@ -4,6 +4,8 @@ import dao.ClientDao;
 import dao.ConseilleDao;
 import model.Client;
 
+import java.util.UUID;
+
 public class ClientService {
     private final ClientDao clientDao;
     private final ConseilleDao conseilleDao = new ConseilleDao();
@@ -29,5 +31,13 @@ public class ClientService {
         }
         clientDao.ajouterClient(c);
         System.out.println("Client ajouter avec succes");
+    }
+    public void supprimerClient(UUID id){
+        if(id == null){
+            System.out.println("Erreur id ne peut pas etre vide");
+            return ;
+        }
+        clientDao.supprimerClient(id);
+        System.out.println("Client supprimer avec success ");
     }
 }

@@ -6,6 +6,7 @@ import utils.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class ClientDao {
     private Connection connection;
@@ -24,6 +25,15 @@ public class ClientDao {
             stmt.executeUpdate();
         } catch (SQLException E) {
             System.out.println("erreur : " + E.getMessage());
+        }
+    }
+    public void supprimerClient(UUID id){
+        String sql = "delete from clients where id = ?";
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setObject(1,id);
+            stmt.executeQuery();
+        }catch (SQLException e){
+            System.out.println(e);
         }
     }
 }

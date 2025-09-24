@@ -29,6 +29,9 @@ public class ClientView {
             case 1:
                 creeeClient();
                 break;
+            case 2:
+                supprimerClient();
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
         }
@@ -50,7 +53,13 @@ public class ClientView {
 
         Client c = new Client(nom, prenom, email, UUID.randomUUID(), conseillerId);
         clientService.ajouterClient(c);
+    }
 
+    public static void supprimerClient(){
 
+        System.out.println("Entrer id du client : ");
+        String id = scanner.nextLine();
+        UUID idClient = UUID.fromString(id);
+        clientService.supprimerClient(idClient);
     }
 }
