@@ -1,5 +1,6 @@
 import View.ClientView;
 import View.ConseilleView;
+import View.ContratView;
 import utils.DatabaseConnection;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -7,6 +8,6 @@ import utils.DatabaseConnection;
 public class Main {
     public static void main(String[] args) {
 //        ConseilleView.start();
-        ClientView.start();
+        ContratView.start();
     }
 }

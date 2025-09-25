@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public class Contrat {
     private UUID id;
+    private UUID client_id;
     private TypeContrat typeContrat;
     private LocalDate dateDebut;
     private LocalDate dateFin;
-    private HashMap<Integer,String> siniters;
 
-    public Contrat(UUID id, TypeContrat typeContrat, LocalDate dateDebut, LocalDate dateFin, HashMap<Integer, String> siniters) {
+    public Contrat(UUID id, UUID client_id ,TypeContrat typeContrat, LocalDate dateDebut, LocalDate dateFin) {
         this.id = id;
+        this.client_id = client_id;
         this.typeContrat = typeContrat;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-        this.siniters = siniters;
     }
 
 
@@ -54,12 +54,12 @@ public class Contrat {
         this.dateFin = dateFin;
     }
 
-    public HashMap<Integer, String> getSiniters() {
-        return siniters;
+    public UUID getClient_id() {
+        return client_id;
     }
 
-    public void setSiniters(HashMap<Integer, String> siniters) {
-        this.siniters = siniters;
+    public void setClient_id(UUID client_id) {
+        this.client_id = client_id;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Contrat {
                 ", typeContrat=" + typeContrat +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
-                ", siniters=" + siniters +
+                ", client_id=" + client_id   +
                 '}';
     }
 }
