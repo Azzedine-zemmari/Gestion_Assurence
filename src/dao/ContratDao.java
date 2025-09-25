@@ -3,11 +3,11 @@ package dao;
 import model.Contrat;
 import utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
+import  Enum.TypeContrat;
 
 public class ContratDao {
     private Connection connection;
@@ -27,4 +27,20 @@ public class ContratDao {
             return stmt.executeUpdate();
     }
 
+    public Contrat afficherContratParId(UUID id) throws SQLException{
+        String sql = "select * from contrats where id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setObject(1,id);
+        ResultSet rs = stmt.executeQuery();
+        if(rs.next()){
+            return new Contrat(
+                    (UUID) rs.getObject("id"),
+                    (UUID) rs.getObject("client_id"),
+                    TypeContrat.valueOf(rs.getString("type_contrat")), // from string to enum
+                    rs.getDate("date_debut").toLocalDate(), // from java.sql.Date to localDate
+                    rs.getDate("date_fin").toLocalDate()
+            );
+        }
+        return null;
+    }
 }

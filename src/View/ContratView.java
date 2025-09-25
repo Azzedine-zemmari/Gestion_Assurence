@@ -12,10 +12,8 @@ import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
+
 import  Enum.TypeContrat;
 import sun.util.resources.LocaleData;
 
@@ -40,6 +38,7 @@ public class ContratView {
                 ajouterContrat();
                 break;
             case 2:
+                recherParId();
                 break;
             case 3:
                 break;
@@ -83,5 +82,21 @@ public class ContratView {
             System.out.println(e);
         }
     }
+    public static void recherParId(){
+        System.out.println("Entrer Id : ");
+        String id = scanner.nextLine();
+        UUID uuid = UUID.fromString(id);
 
+        try{
+        Optional<Contrat> contrat = contratService.afficherContratParId(uuid);
+        if(contrat.isPresent()){
+            System.out.println(contrat.get()); // to get only the contrat without Optional[]
+        }
+        else{
+            System.out.println("No contrat with this  id ");
+        }
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+    }
 }
