@@ -3,11 +3,11 @@ package dao;
 import model.Sinister;
 import utils.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import Enum.TypeSinister;
 
 public class SinisterDao {
     private Connection connection;
@@ -32,4 +32,29 @@ public class SinisterDao {
         stmt.setObject(1,id);
         stmt.executeUpdate();
     }
+    public List<Sinister> getAllSiniter(){
+        List<Sinister> sinisters = new ArrayList<>();
+        String sql = "Select * from siniters";
+        try(Statement stmt = connection.createStatement()){
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                sinisters.add(new Sinister(
+                        (UUID) rs.getObject("id"),
+                        TypeSinister.valueOf(rs.getString("type_siniter")),
+                        rs.getDate("date_debut").toLocalDate(),
+                        rs.getDate("date_fin").toLocalDate(),
+                        rs.getDouble("Montant"),
+                        rs.getString("Description"),
+                        (UUID) rs.getObject("Contrat_id")
+                ));
+            }
+            return sinisters;
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+//    public double calculerCoutTotalSinistresParClient(UUID id){
+//
+//    }
 }
