@@ -43,4 +43,13 @@ public class ContratDao {
         }
         return null;
     }
+    public void supprimerContrat(UUID id){
+        String sql = "delete from contrats where id = ?";
+        try(PreparedStatement stmt = connection.prepareStatement(sql)){
+            stmt.setObject(1,id);
+            stmt.executeQuery();
+        }catch (SQLException E){
+            System.out.println(E);
+        }
+    }
 }

@@ -20,7 +20,7 @@ import sun.util.resources.LocaleData;
 public class ContratView {
     private static final Scanner scanner = new Scanner(System.in);
     private static final ContratService contratService = new ContratService();
-//    private static final ConseilleDao conseilleDao = new ConseilleDao();
+   private static final ContratDao contratDao = new ContratDao();
     private static final ClientDao clientDao = new ClientDao();
 
     public static void start() {
@@ -41,6 +41,7 @@ public class ContratView {
                 recherParId();
                 break;
             case 3:
+                supprimerContrat();
                 break;
             case 4 :
                 break;
@@ -98,5 +99,13 @@ public class ContratView {
         }catch (SQLException e){
             System.out.println(e);
         }
+    }
+    public static void supprimerContrat(){
+        System.out.println("Entrer Id : ");
+        String id = scanner.nextLine();
+        UUID uuid = UUID.fromString(id);
+
+        contratDao.supprimerContrat(uuid);
+        System.out.println("done");
     }
 }
