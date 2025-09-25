@@ -1,16 +1,21 @@
 package dao;
 
+import model.Client;
 import model.Contrat;
 import utils.DatabaseConnection;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import  Enum.TypeContrat;
 
 public class ContratDao {
     private Connection connection;
+    private final static ClientDao clientDao = new ClientDao();
     public ContratDao(){
         connection = DatabaseConnection.getConnection();
     }
@@ -51,5 +56,32 @@ public class ContratDao {
         }catch (SQLException E){
             System.out.println(E);
         }
+    }
+    public  List<Contrat> afficherAllContrat(){
+        ArrayList<Contrat> contrats = new ArrayList<>();
+        String sql = "select * from contrats";
+        try(Statement stmt = connection.createStatement()){
+           ResultSet rs =  stmt.executeQuery(sql);
+           while(rs.next()){
+               contrats.add(new Contrat(
+                       (UUID) rs.getObject("id"),
+                       (UUID) rs.getObject("client_id"),
+                       TypeContrat.valueOf(rs.getString("type_contrat")),
+                       rs.getDate("date_debut").toLocalDate(),
+                       rs.getDate("date_fin").toLocalDate()
+                       )
+               );
+           }
+           return contrats;
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    public List<Contrat> ContratsForClient(UUID id){
+        List<Contrat> contrats = afficherAllContrat();
+        return contrats.stream()
+                .filter(contrat -> id.equals(contrat.getClient_id()))
+                .collect(Collectors.toList());
     }
 }

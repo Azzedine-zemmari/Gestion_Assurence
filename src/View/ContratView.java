@@ -44,6 +44,7 @@ public class ContratView {
                 supprimerContrat();
                 break;
             case 4 :
+                contratsForId();
                 break;
             default:
                 System.out.println("choose a nombre in the list ");
@@ -107,5 +108,13 @@ public class ContratView {
 
         contratDao.supprimerContrat(uuid);
         System.out.println("done");
+    }
+    public static void contratsForId(){
+        System.out.println("Entrer Id : ");
+        String id = scanner.nextLine();
+        UUID uuid = UUID.fromString(id);
+
+        System.out.println(contratDao.ContratsForClient(uuid));
+
     }
 }
