@@ -1,8 +1,10 @@
 package View;
 
+import dao.SinisterDao;
 import model.Sinister;
 import service.SinisterService;
 
+import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +17,7 @@ import Enum.TypeSinister;
 public class SinisterView {
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final SinisterService SINISTER_SERVICE = new SinisterService();
-
+    private static final SinisterDao SINISTER_DAO = new SinisterDao();
     public static void start() {
         System.out.println("1 . cree sinister ");
         System.out.println("2 . delete sinister ");
@@ -31,6 +33,7 @@ public class SinisterView {
                 creeSinister();
                 break;
             case 2:
+                supprimerSinister();
                 break;
             case 3:
                 break;
@@ -70,5 +73,16 @@ public class SinisterView {
         UUID uuid = UUID.fromString(id);
         Sinister sinister = new Sinister(UUID.randomUUID(),type,dateDebut,dateFin,montant,description,uuid);
         SINISTER_SERVICE.ajouterSinister(sinister);
+    }
+    public static void supprimerSinister(){
+        System.out.println("Entrer votre id :");
+        String id = SCANNER.nextLine();
+        UUID uuid = UUID.fromString(id);
+        try{
+        SINISTER_DAO.supprimerSinister(uuid);
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+
     }
 }

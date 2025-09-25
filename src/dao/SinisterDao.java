@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.UUID;
 
 public class SinisterDao {
     private Connection connection;
@@ -24,6 +25,11 @@ public class SinisterDao {
             stmt.setString(6,s.getDescription());
             stmt.setObject(7,s.getContrat_Id());
         return stmt.executeUpdate();
-
+    }
+    public void supprimerSinister(UUID id) throws  SQLException{
+        String sql = "delete from siniters where id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setObject(1,id);
+        stmt.executeUpdate();
     }
 }
