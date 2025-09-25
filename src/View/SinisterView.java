@@ -36,6 +36,7 @@ public class SinisterView {
                 supprimerSinister();
                 break;
             case 3:
+                calculerCoutTotalSinistresParClient();
                 break;
             case 4:
                 break;
@@ -84,5 +85,12 @@ public class SinisterView {
             System.out.println(e);
         }
 
+    }
+    public static void calculerCoutTotalSinistresParClient(){
+        System.out.println("Entrer votre id :");
+        String id = SCANNER.nextLine();
+        UUID uuid = UUID.fromString(id);
+
+        System.out.println(SINISTER_DAO.calculerCoutTotalSinistresParClient(uuid));
     }
 }

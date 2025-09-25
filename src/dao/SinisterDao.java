@@ -1,5 +1,6 @@
 package dao;
 
+import model.Contrat;
 import model.Sinister;
 import utils.DatabaseConnection;
 
@@ -7,10 +8,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import Enum.TypeSinister;
 
 public class SinisterDao {
     private Connection connection;
+    private static final ContratDao CONTRAT_DAO = new ContratDao();
     public SinisterDao(){
         connection = DatabaseConnection.getConnection();
     }
@@ -54,7 +58,20 @@ public class SinisterDao {
         }
         return null;
     }
-//    public double calculerCoutTotalSinistresParClient(UUID id){
-//
-//    }
+    public double calculerCoutTotalSinistresParClient(UUID id){
+        List<Sinister> sinisters = getAllSiniter();
+        List<Contrat> contrats = CONTRAT_DAO.afficherAllContrat();
+        // create it again
+        // get the contrat id for that client
+        List<UUID> contratsDuClient = contrats.stream()
+                .filter(contrat -> contrat.getClient_id().equals(id))
+                .map(contrat -> contrat.getId())
+                .collect(Collectors.toList());
+
+        Double total = sinisters.stream()
+                .filter(sinister -> contratsDuClient.contains(sinister.getContrat_Id()) )
+                .mapToDouble(Sinister::getMontant)
+                .sum();
+        return total;
+    }
 }
