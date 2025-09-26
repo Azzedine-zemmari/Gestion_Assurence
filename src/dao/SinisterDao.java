@@ -82,4 +82,17 @@ public class SinisterDao {
                 .collect(Collectors.toList());
          return result;
     }
+    public List<Sinister> getAllSinisterById(UUID id){
+        List<Sinister> sinisters = getAllSiniter();
+        List<Contrat> contrats = CONTRAT_DAO.afficherAllContrat();
+
+        List<UUID> contratIds = contrats.stream()
+                .filter(contrat -> contrat.getClient_id().equals(id))
+                .map(Contrat::getId)
+                .collect(Collectors.toList());
+
+        return sinisters.stream()
+                .filter(sinister -> contratIds.contains(sinister.getContrat_Id()))
+                .collect(Collectors.toList());
+    }
 }

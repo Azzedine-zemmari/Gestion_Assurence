@@ -41,6 +41,9 @@ public class SinisterView {
             case 4:
                 sortSinisterByMnotant();
                 break;
+            case 5:
+                getAllSinisterByClientId();
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
         }
@@ -96,5 +99,11 @@ public class SinisterView {
     }
     public static void sortSinisterByMnotant(){
         System.out.println(SINISTER_DAO.getAllSinisterTrie());
+    }
+    public static void getAllSinisterByClientId(){
+        System.out.println("Entrer votre id :");
+        String id = SCANNER.nextLine();
+        UUID uuid = UUID.fromString(id);
+        System.out.println(SINISTER_DAO.getAllSinisterById(uuid));
     }
 }
