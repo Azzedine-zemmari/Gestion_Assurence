@@ -20,9 +20,9 @@ public class ClientView {
 
         System.out.println("1 . cree client ");
         System.out.println("2 . delete client ");
-        System.out.println("3 . recherche un client par nom ");
-        System.out.println("4 . rchecher par id ");
-        System.out.println("5 . afficher liste du client a partient d un conseille ");
+        System.out.println("3 . afficher liste du client a partient d un conseille ");
+        System.out.println("4 . recherche un client par nom ");
+        System.out.println("5 . rchecher par id ");
         System.out.println("0 . Quitter ");
 
         choix = SCANNER.nextInt();
