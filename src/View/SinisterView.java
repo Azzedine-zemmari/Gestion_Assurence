@@ -44,6 +44,12 @@ public class SinisterView {
             case 5:
                 getAllSinisterByClientId();
                 break;
+            case 6:
+                getSinistresBeforeDate();
+                break;
+            case 7 :
+                getSinistresAboveMontant();
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
         }
@@ -105,5 +111,18 @@ public class SinisterView {
         String id = SCANNER.nextLine();
         UUID uuid = UUID.fromString(id);
         System.out.println(SINISTER_DAO.getAllSinisterById(uuid));
+    }
+    public static void getSinistresBeforeDate(){
+        System.out.println("Entre date (yyyy-MM-dd): ");
+        String date = SCANNER.nextLine();
+        LocalDate date1 = LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        System.out.println(SINISTER_DAO.getSinistresBeforeDate(date1));
+    }
+    public static void getSinistresAboveMontant(){
+        System.out.println("Entrer montant : ");
+        Double montant = SCANNER.nextDouble();
+
+        System.out.println(SINISTER_DAO.getSinistresAboveMontant(montant));
     }
 }

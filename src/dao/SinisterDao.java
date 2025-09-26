@@ -5,6 +5,7 @@ import model.Sinister;
 import utils.DatabaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -93,6 +94,19 @@ public class SinisterDao {
 
         return sinisters.stream()
                 .filter(sinister -> contratIds.contains(sinister.getContrat_Id()))
+                .collect(Collectors.toList());
+    }
+    public List<Sinister> getSinistresBeforeDate(LocalDate date) {
+        List<Sinister> sinisters = getAllSiniter();
+        return sinisters.stream()
+                .filter(s -> s.getDateFin().isBefore(date))
+                .collect(Collectors.toList());
+    }
+
+    public List<Sinister> getSinistresAboveMontant(Double montant) {
+        List<Sinister> sinisters = getAllSiniter();
+        return sinisters.stream()
+                .filter(s -> s.getMontant() > montant)
                 .collect(Collectors.toList());
     }
 }
