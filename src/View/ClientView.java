@@ -16,13 +16,17 @@ public class ClientView {
     private static final ClientDao clientDao = new ClientDao();
 
     public static void start() {
+        int choix = -1;
+        while(choix != 0){
+
         System.out.println("1 . cree client ");
         System.out.println("2 . delete client ");
         System.out.println("3 . recherche un client par nom ");
         System.out.println("4 . rchecher par id ");
         System.out.println("5 . afficher liste du client a partient d un conseille ");
+        System.out.println("0 . Quitter ");
 
-        int choix = scanner.nextInt();
+        choix = scanner.nextInt();
         scanner.nextLine();
 
         switch (choix) {
@@ -41,10 +45,12 @@ public class ClientView {
             case 5:
                 rechercheParId();
                 break;
+            case 0:
+                System.out.println("au revoir");
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
-        }
-
+        }}
     }
 
     public static void creeeClient() {

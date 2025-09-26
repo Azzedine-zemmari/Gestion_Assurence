@@ -74,7 +74,28 @@ public class ConseilleDao {
         }
         return conseilles;
     }
-//    public ArrayList<Client> afficherConseillerClients(UUID id){
-//        String sql = "";
-//    }
+    public List<Client> afficherClientForConseille(UUID conseilleId) {
+        List<Client> clients = new ArrayList<>();
+        String sql = "SELECT * FROM clients WHERE conseille_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setObject(1, conseilleId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Client client = new Client(
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        (UUID) rs.getObject("id"),
+                        (UUID) rs.getObject("conseille_id")
+                );
+                clients.add(client);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des clients: " + e.getMessage());
+        }
+
+        return clients;
+}
 }

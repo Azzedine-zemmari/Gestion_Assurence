@@ -24,13 +24,16 @@ public class ContratView {
     private static final ClientDao clientDao = new ClientDao();
 
     public static void start() {
+        int choix = -1;
+        while(choix != 0){
+
         System.out.println("1 . cree contrat ");
         System.out.println("2 . delete contrat ");
-//       use Optional
         System.out.println("3 . recherche un contrat par id ");
         System.out.println("4 . afficher contrat pour un client id ");
+        System.out.println("0 . Quitter ");
 
-        int choix = scanner.nextInt();
+        choix = scanner.nextInt();
         scanner.nextLine();
 
         switch (choix) {
@@ -46,17 +49,21 @@ public class ContratView {
             case 4 :
                 contratsForId();
                 break;
+            case 0 :
+                System.out.println("Au revoir");
+                break;
             default:
                 System.out.println("choose a nombre in the list ");
+        }
         }
 
     }
     public static void ajouterContrat(){
         System.out.println("Entrer votre client_id");
-        ArrayList<Client> clients = clientDao.afficherAllclient();
-        for(Client c: clients){
-            System.out.println(c);
-        }
+//        ArrayList<Client> clients = clientDao.afficherAllclient();
+//        for(Client c: clients){
+//            System.out.println(c);
+//        }
         String id = scanner.nextLine();
         UUID uuid = UUID.fromString(id);
 
