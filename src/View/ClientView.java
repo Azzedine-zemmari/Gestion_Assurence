@@ -6,14 +6,13 @@ import model.Client;
 import model.Conseille;
 import service.ClientService;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
 public class ClientView {
-    private static final Scanner scanner = new Scanner(System.in);
-    private static final ClientService clientService = new ClientService();
-    private static final ConseilleDao conseilleDao = new ConseilleDao();
-    private static final ClientDao clientDao = new ClientDao();
+    private static final Scanner SCANNER = new Scanner(System.in);
+    private static final ClientService CLIENT_SERVICE = new ClientService();
+    private static final ConseilleDao CONSEILLE_DAO = new ConseilleDao();
+    private static final ClientDao CLIENT_DAO = new ClientDao();
 
     public static void start() {
         int choix = -1;
@@ -26,8 +25,8 @@ public class ClientView {
         System.out.println("5 . afficher liste du client a partient d un conseille ");
         System.out.println("0 . Quitter ");
 
-        choix = scanner.nextInt();
-        scanner.nextLine();
+        choix = SCANNER.nextInt();
+        SCANNER.nextLine();
 
         switch (choix) {
             case 1:
@@ -55,56 +54,56 @@ public class ClientView {
 
     public static void creeeClient() {
         System.out.println("Enter votre nom ");
-        String nom = scanner.nextLine();
+        String nom = SCANNER.nextLine();
 
         System.out.println("Enter votre prenom ");
-        String prenom = scanner.nextLine();
+        String prenom = SCANNER.nextLine();
 
         System.out.println("Enter votre email ");
-        String email = scanner.nextLine();
+        String email = SCANNER.nextLine();
 
         System.out.println("Choisi votre conseiller");
-        List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
+        List<Conseille> conseilles = CONSEILLE_DAO.afficherAllConseiller();
         conseilles.stream().forEach(conseille -> System.out.println(conseille));
-        String uuid = scanner.nextLine();
+        String uuid = SCANNER.nextLine();
         UUID conseillerId = UUID.fromString(uuid);
 
         Client c = new Client(nom, prenom, email, UUID.randomUUID(), conseillerId);
-        clientService.ajouterClient(c);
+        CLIENT_SERVICE.ajouterClient(c);
     }
 
     public static void supprimerClient(){
-        ArrayList<Client> clients = clientDao.afficherAllclient();
+        ArrayList<Client> clients = CLIENT_DAO.afficherAllclient();
         for(Client c : clients){
             System.out.println(c);
         }
         System.out.println("Entrer id du client : ");
-        String id = scanner.nextLine();
+        String id = SCANNER.nextLine();
         UUID idClient = UUID.fromString(id);
-        clientService.supprimerClient(idClient);
+        CLIENT_SERVICE.supprimerClient(idClient);
     }
     public static void afficherClientOfConseil(){
         System.out.println("test");
-        List<Conseille> conseilles = conseilleDao.afficherAllConseiller();
+        List<Conseille> conseilles = CONSEILLE_DAO.afficherAllConseiller();
         conseilles.stream()
                 .forEach(conseille -> System.out.println(conseille));
         System.out.println("Enterer id pour le conseillent ");
-        String Conseille_idS = scanner.nextLine();
+        String Conseille_idS = SCANNER.nextLine();
         UUID uuid = UUID.fromString(Conseille_idS);
-        System.out.println(clientDao.afficherClientForConseille(uuid));
+        System.out.println(CLIENT_DAO.afficherClientForConseille(uuid));
     }
     public static void rechercheParNom(){
         System.out.println("Entrer votre nom : ");
-        String nom = scanner.nextLine();
+        String nom = SCANNER.nextLine();
 
-        System.out.println(clientService.rechercherClientsParNom(nom));
+        System.out.println(CLIENT_SERVICE.rechercherClientsParNom(nom));
     }
     public static void rechercheParId(){
         System.out.println("Entrer Id : ");
-        String id = scanner.nextLine();
+        String id = SCANNER.nextLine();
         UUID uuid = UUID.fromString(id);
 
-        Optional<Client> client = clientService.rechercherClientParId(uuid);
+        Optional<Client> client = CLIENT_SERVICE.rechercherClientParId(uuid);
         if(client.isPresent()){
             System.out.println(client);
         }else{
