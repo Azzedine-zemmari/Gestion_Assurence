@@ -52,8 +52,12 @@ public class ContratDao {
         String sql = "delete from contrats where id = ?";
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setObject(1,id);
-            stmt.executeQuery();
-        }catch (SQLException E){
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Contrat supprimé avec succès");
+            } else {
+                System.out.println("Aucun contrat trouvé avec cet ID");
+            }        }catch (SQLException E){
             System.out.println(E);
         }
     }
