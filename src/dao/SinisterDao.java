@@ -6,6 +6,7 @@ import utils.DatabaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -73,5 +74,12 @@ public class SinisterDao {
                 .mapToDouble(Sinister::getMontant)
                 .sum();
         return total;
+    }
+    public List<Sinister> getAllSinisterTrie(){
+        List<Sinister> sinisters = getAllSiniter();
+         List<Sinister> result = sinisters.stream()
+                .sorted(Comparator.comparingDouble(Sinister::getMontant).reversed())
+                .collect(Collectors.toList());
+         return result;
     }
 }

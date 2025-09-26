@@ -39,6 +39,7 @@ public class SinisterView {
                 calculerCoutTotalSinistresParClient();
                 break;
             case 4:
+                sortSinisterByMnotant();
                 break;
             default:
                 System.out.println("choose a nombre in the list ");
@@ -92,5 +93,8 @@ public class SinisterView {
         UUID uuid = UUID.fromString(id);
 
         System.out.println(SINISTER_DAO.calculerCoutTotalSinistresParClient(uuid));
+    }
+    public static void sortSinisterByMnotant(){
+        System.out.println(SINISTER_DAO.getAllSinisterTrie());
     }
 }
